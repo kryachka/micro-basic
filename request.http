@@ -1,0 +1,36 @@
+POST http://localhost:1233/facade-service
+Content-Type: application/x-www-form-urlencoded
+
+msg=first
+
+###
+POST http://localhost:9002/facade-service
+Content-Type: application/json
+
+{
+  "msg":"jij"
+}
+
+###
+###
+POST http://localhost:1233/facade-service HTTP/1.1
+Content-Type: application/json
+accept:application/json
+
+{ "msg":"fd" }
+###get message
+GET http://localhost:9000/logging-service
+Accept: text/html
+
+###get message
+GET http://localhost:9001/messages
+Accept: text/html
+
+###
+POST http://localhost:9002/facade-service
+Content-Type: application/json
+
+{"msg":"4"}
+###get message
+GET http://localhost:9002/facade-service HTTP/1.1
+Accept: text/html
