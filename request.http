@@ -31,6 +31,11 @@ POST http://localhost:9002/facade-service
 Content-Type: application/json
 
 {"msg":"4"}
+
+###get message
+GET http://localhost:9002/facade-service HTTP/1.1
+Accept: text/html
+
 ###get message
 GET http://localhost:9002/facade-service HTTP/1.1
 Accept: text/html
