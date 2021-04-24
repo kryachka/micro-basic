@@ -1,40 +1,15 @@
-from flask import request, Flask
-import hazelcast
-
-app = Flask(__name__)
-
-dictionary = {}
-client = hazelcast.HazelcastClient(
-    cluster_name="dev",
-    cluster_members=[
-        "127.0.0.1:5703",
-        "127.0.0.1:5704",
-        "127.0.0.1:5705"
-    ],
-    lifecycle_listeners=[lambda state: print("Lifecycle:", state), ]
-)
+import random
+import uuid
+import requests
+import http.client
+from flask import Flask, request
+def get_rand_logging_client():
+    return random.choice(["http://localhost:5703", "http://localhost:5704", "http://localhost:5705"])
 
 
-@app.route('/logging-service', methods=['GET', 'POST'])
-def loggingService():
-    if request.method == 'GET':
-        return ','.join([msg for msg in dictionary.values()])
-    else:
-        return post_request()
+def get_rand():
+    for i in range(1, 15):
+        rand = get_rand_logging_client()
+        print(rand)
 
-
-distributed_map = client.get_map("map")
-
-
-def post_request():
-    print(f'Received request: {request}..............')
-    uuid = request.uuid
-    msg = request.msg
-    distributed_map.put(uuid, msg)
-    # dictionary.update({request.json["uuid"]: request.json["msg"]})
-    print(f'saved .............')
-    return app.response_class(status=200)
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5703, debug=True)
+get_rand()

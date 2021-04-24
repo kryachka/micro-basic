@@ -2,7 +2,7 @@ from flask import request, Flask
 import hazelcast
 app = Flask(__name__)
 
-dictionary = {}
+
 client = hazelcast.HazelcastClient(
         cluster_name="dev",
         cluster_members=[
@@ -13,19 +13,21 @@ client = hazelcast.HazelcastClient(
         lifecycle_listeners=[lambda state: print("Lifecycle:", state), ]
     )
 
+
+distributed_map=client.get_map("map")
+
 @app.route('/logging-service', methods=['GET', 'POST'])
 def loggingService():
     if request.method == 'GET':
-        return ','.join([msg for msg in dictionary.values()])
+        return ','.join([msg for msg in distributed_map.values().result()])
     else:
         return post_request()
-distributed_map=client.get_map("map")
 
 def post_request():
     print(f'Received request: {request}..............')
-    uuid = request.uuid
-    msg = request.msg
-    distributed_map.put(uuid, msg)
+    uuid = request.json.get("uuid")
+    msg = request.json.get("msg")
+    distributed_map.set(str(uuid), str(msg))
     #dictionary.update({request.json["uuid"]: request.json["msg"]})
     print(f'saved .............')
     return app.response_class(status=200)
@@ -33,5 +35,5 @@ def post_request():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5703, debug=True)
+      app.run(host='0.0.0.0', port=5708, debug=True)
 

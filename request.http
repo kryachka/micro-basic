@@ -1,41 +1,28 @@
-POST http://localhost:1233/facade-service
-Content-Type: application/x-www-form-urlencoded
 
-msg=first
-
-###
-POST http://localhost:9002/facade-service
+POST http://0.0.0.0:9002/facade-service HTTP/1.1
 Content-Type: application/json
 
 {
-  "msg":"jij"
+  "msg":"fd"
 }
 
 ###
-###
-POST http://localhost:1233/facade-service HTTP/1.1
+POST http://localhost:9002/facade-service HTTP/1.1
 Content-Type: application/json
-accept:application/json
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
 
-{ "msg":"fd" }
+{"msg":"6"}
+
 ###get message
-GET http://localhost:9000/logging-service
+GET http://0.0.0.0:9002/facade-service HTTP/1.1
 Accept: text/html
 
 ###get message
-GET http://localhost:9001/messages
+GET http://0.0.0.0:9001/messages HTTP/1.1
 Accept: text/html
+#####
 
-###
-POST http://localhost:9002/facade-service
-Content-Type: application/json
-
-{"msg":"4"}
-
-###get message
-GET http://localhost:9002/facade-service HTTP/1.1
-Accept: text/html
-
-###get message
-GET http://localhost:9002/facade-service HTTP/1.1
-Accept: text/html
