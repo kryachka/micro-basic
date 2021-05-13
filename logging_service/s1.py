@@ -33,7 +33,14 @@ def post_request():
     return app.response_class(status=200)
 
 
-
+def getLogging():
+    # print(f'Return messages:', self.messages_dict.values())
+    distributed_map = client.get_map("map")
+    messages = distributed_map.values().result()
+    print('messages:', messages)
+    return app.response_class(
+        messages=messages
+    )
 if __name__ == '__main__':
       app.run(host='0.0.0.0', port=5708, debug=True)
 

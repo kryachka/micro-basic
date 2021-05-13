@@ -15,14 +15,17 @@ Connection: keep-alive
 Cache-Control: max-age=0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
 
-{"msg":"6"}
+{"msg":" 45 "}
 
 ###get message
 GET http://0.0.0.0:9002/facade-service HTTP/1.1
 Accept: text/html
 
 ###get message
-GET http://0.0.0.0:9001/messages HTTP/1.1
+GET http://0.0.0.0:9010/messages HTTP/1.1
+Accept: text/html
+#####
+GET http://0.0.0.0:9009/messages HTTP/1.1
 Accept: text/html
 #####
 

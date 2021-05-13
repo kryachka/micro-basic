@@ -21,8 +21,8 @@ app = Flask(__name__)
 
 @app.route('/messages',  methods=['GET'])
 def messages():
-    print(msg)
-    return str(msg)
+    print(msg_1)
+    return str(msg_1)
 
 
 def thread_receive(target):
@@ -44,7 +44,7 @@ def main_consume(msg):
         print('Newest messages', msg)
 
 if __name__ == '__main__':
-    msg = []
-    main_consume(msg)
-    print('First message service is working................................')
-    app.run(host='0.0.0.0', port=9009, debug=False)
+    msg_1 = []
+    main_consume(msg_1)
+    print('Second message service is working................................')
+    app.run(host='0.0.0.0', port=9010, debug=False)
